@@ -32,10 +32,10 @@ struct AioCB : public aiocb {
 
 
 // Callback when IO's completed
-static void IOCompleted(sigval_t sigval) {
+static void IOCompleted(sigval sigv) {
 	//cbtracker.insert(pthread_self());
 
-	auto request = (AioCB *)sigval.sival_ptr;
+	auto request = (AioCB *)sigv.sival_ptr;
 	long latency = Timer::elapsedTimeSince(request->beginTime); // time completed
 
 	++completeCount; // keep track number of request completed
